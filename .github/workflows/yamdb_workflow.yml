@@ -58,8 +58,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd yamdb/
-            sudo -S ${{ secrets.PASSWORD }} docker-compose stop
-            sudo -S ${{ secrets.PASSWORD }} docker-compose rm web
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose stop
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose rm web
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -67,4 +67,4 @@ jobs:
             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            sudo -S ${{ secrets.PASSWORD }} docker-compose up -d
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
