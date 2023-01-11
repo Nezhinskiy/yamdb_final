@@ -7,8 +7,6 @@ from rest_framework import (filters, generics, mixins, permissions, status,
                             viewsets)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from reviews.models import Comment, Review
-from titles.models import Category, Genre, Title
 
 from api import serializers
 from api.filters import TitleFilter
@@ -18,6 +16,8 @@ from api.serializers import (CategorySerializer, CommentSerializer,
                              GenreSerializer, ReviewSerializer,
                              TitleReadSerializer, TitleWriteSerializer)
 from api.utils import get_token_for_user
+from reviews.models import Comment, Review
+from titles.models import Category, Genre, Title
 
 User = get_user_model()
 
@@ -76,10 +76,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         title_id = self.kwargs.get('title_id')
         get_object_or_404(Title, id=title_id)
-        queryset = Review.objects.select_related(
+        return Review.objects.select_related(
             'title', 'author'
         ).only('title__id', 'author__username').filter(title_id=title_id)
-        return queryset
 
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
@@ -96,12 +95,11 @@ class CommentViewSet(viewsets.ModelViewSet):
         title_id = self.kwargs.get('title_id')
         review_id = self.kwargs.get('review_id')
         get_object_or_404(Review, id=review_id, title_id=title_id)
-        queryset = Comment.objects.select_related(
+        return Comment.objects.select_related(
             'review', 'author'
         ).only('review__id', 'review__title', 'author__username').filter(
             review_id=review_id, review__title_id=title_id
         )
-        return queryset
 
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
