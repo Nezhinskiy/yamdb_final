@@ -10,7 +10,7 @@ services:
     networks:
       - djangonetwork
   web:
-    build: ../api_yamdb
+    image: nezhinsky/api_yamdb:latest
     restart: always
     volumes:
     - static_value:/app/static/
