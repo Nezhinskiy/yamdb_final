@@ -4,6 +4,10 @@ yamdb_final - 16ый спринт
 
 ![example workflow](https://github.com/Nezhinskiy/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
+[Путь до API](http://51.250.108.30/api/v1/)
+
+[Документация API](http://51.250.108.30/redoc/)
+
 API для получения информации и обсуждения наиболее интересных произведений. 
 
 Для автоматизации развертывания на боевых серверах используется среда виртуализации Docker, а также Docker-compose - инструмент для запуска многоконтейнерных приложений. 
