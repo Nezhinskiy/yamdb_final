@@ -66,8 +66,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api_yamdb.wsgi.application'
 
 
+DEBUG_MODE = os.getenv("DEBUG_MODE", "True") == "True"
+
 # Database
-if DEBUG:
+if DEBUG_MODE:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
