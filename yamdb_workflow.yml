@@ -69,10 +69,6 @@ jobs:
             echo DEBUG=${{ secrets.DEBUG }} >> .env
             echo DEBUG_MODE=${{ secrets.DEBUG_MODE }} >> .env
             sudo docker-compose up -d
-            sudo docker-compose exec web python manage.py migrate
-            sudo docker-compose exec web python manage.py loaddb
-            sudo docker-compose exec web python manage.py collectstatic
-
 
   send_message:
     runs-on: ubuntu-latest
