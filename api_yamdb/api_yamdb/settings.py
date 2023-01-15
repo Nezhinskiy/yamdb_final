@@ -66,7 +66,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api_yamdb.wsgi.application'
 
 
-DEBUG_MODE = os.getenv("DEBUG_MODE", "True") == "True"
+DEBUG_MODE = os.getenv("DEBUG_MODE", "False") == "True"
 
 # Database
 if DEBUG_MODE:
