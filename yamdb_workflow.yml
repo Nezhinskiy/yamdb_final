@@ -70,8 +70,8 @@ jobs:
             echo DEBUG_MODE=${{ secrets.DEBUG_MODE }} >> .env
             sudo docker-compose up -d
             sudo docker-compose exec web python manage.py migrate
-            yes | sudo docker-compose exec web python manage.py loaddb
-            yes | sudo docker-compose exec web python manage.py collectstatic
+            sudo docker-compose exec web python manage.py loaddb
+            sudo docker-compose exec web python manage.py collectstatic
 
 
   send_message:
