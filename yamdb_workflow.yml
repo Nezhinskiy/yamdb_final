@@ -57,8 +57,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             sudo docker-compose stop
-            sudo docker-compose rm web
+            yes | sudo docker-compose rm web
             sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/api_yamdb
+            sudo docker image rm nginx
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -69,7 +70,9 @@ jobs:
             echo DEBUG=${{ secrets.DEBUG }} >> .env
             echo DEBUG_MODE=${{ secrets.DEBUG_MODE }} >> .env
             sudo docker-compose up -d
-            sudo docker-compose exec web python manage.py loaddb
+            sudo docker-compose exec web python manage.py migrate
+            yes | sudo docker-compose exec web python manage.py loaddb
+            yes | sudo docker-compose exec web python manage.py collectstatic
 
 
   send_message:
